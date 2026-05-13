@@ -31,4 +31,16 @@ describe("mapLorcastToCard", () => {
     delete noLegality.legalities;
     expect(mapLorcastToCard(noLegality).legality).toBe("legal");
   });
+
+  it("treats `inks: null` + `ink: 'Amber'` as single-ink (real Lorcast shape)", () => {
+    const single = { ...fixture, inks: null, ink: "Amber" };
+    const card = mapLorcastToCard(single);
+    expect(card.inks).toEqual(["Amber"]);
+  });
+
+  it("treats `ink: null` + `inks: ['Amber', 'Steel']` as dual-ink", () => {
+    const dual = { ...fixture, ink: null, inks: ["Amber", "Steel"] };
+    const card = mapLorcastToCard(dual);
+    expect(card.inks).toEqual(["Amber", "Steel"]);
+  });
 });

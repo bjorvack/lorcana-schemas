@@ -28,7 +28,7 @@ export const LorcastApiCard = z
     cost: z.number().int().nonnegative(),
     inkwell: z.boolean(),
     ink: z.string().nullable().optional(),
-    inks: z.array(z.string()).optional(),
+    inks: z.array(z.string()).nullable().optional(),
     type: z.union([z.string(), z.array(z.string())]),
     classifications: z.array(z.string()).optional(),
     keywords: z.array(z.string()).optional(),
@@ -63,7 +63,10 @@ export const LorcastApiCard = z
 export type LorcastApiCardT = z.infer<typeof LorcastApiCard>;
 
 function asInks(api: LorcastApiCardT): InkT[] {
-  const raw = api.inks ?? (api.ink ? [api.ink] : []);
+  // Lorcast uses two encodings:
+  //   - dual-ink cards:  inks = ["Amber", "Steel"], ink = null
+  //   - single-ink:      inks = null,               ink = "Amber"
+  const raw = api.inks && api.inks.length > 0 ? api.inks : api.ink ? [api.ink] : [];
   const inks = raw.map((s) => Ink.parse(s));
   if (inks.length < 1 || inks.length > 2) {
     throw new Error(`Card ${api.id} has invalid ink count: ${inks.length}`);
