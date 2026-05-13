@@ -1,6 +1,13 @@
 import { z } from "zod";
 import { Card, type CardT } from "./card.js";
-import { CardType, Ink, Legality, type CardTypeT, type InkT, type LegalityT } from "./primitives.js";
+import {
+  CardType,
+  Ink,
+  Legality,
+  type CardTypeT,
+  type InkT,
+  type LegalityT,
+} from "./primitives.js";
 
 /**
  * Permissive shape of an `api.lorcast.com` card response, with only the

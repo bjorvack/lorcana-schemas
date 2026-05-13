@@ -1,9 +1,7 @@
 import { z } from "zod";
 import { Deck } from "./deck.js";
 
-const IsoDate = z
-  .string()
-  .regex(/^\d{4}-\d{2}-\d{2}$/, "Expected ISO 8601 date (YYYY-MM-DD)");
+const IsoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Expected ISO 8601 date (YYYY-MM-DD)");
 
 export const Tournament = z
   .object({

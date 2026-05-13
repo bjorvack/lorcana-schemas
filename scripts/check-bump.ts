@@ -30,4 +30,3 @@ try {
 } catch (err) {
   console.warn("bump check skipped:", (err as Error).message);
 }
-

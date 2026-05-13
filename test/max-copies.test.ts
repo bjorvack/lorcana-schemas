@@ -34,7 +34,9 @@ describe("computeMaxCopies", () => {
 
   it("recognises 'any number of cards named'", () => {
     expect(
-      computeMaxCopies(card({ text: "You may have any number of cards named Dalmatian Puppy in your deck." })),
+      computeMaxCopies(
+        card({ text: "You may have any number of cards named Dalmatian Puppy in your deck." }),
+      ),
     ).toBe(Number.POSITIVE_INFINITY);
   });
 

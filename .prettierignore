@@ -2,3 +2,6 @@ dist
 node_modules
 schemas
 coverage
+pnpm-lock.yaml
+DESIGN.md
+CHANGELOG.md

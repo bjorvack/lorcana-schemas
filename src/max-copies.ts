@@ -54,9 +54,7 @@ export function isTournamentLegal(
     const cap = computeMaxCopies(card);
     if (count > cap) {
       reasons.push(
-        `${card.name}: ${count} copies exceeds cap ${
-          Number.isFinite(cap) ? cap : "infinity"
-        }`,
+        `${card.name}: ${count} copies exceeds cap ${Number.isFinite(cap) ? cap : "infinity"}`,
       );
     }
     for (const ink of card.inks) {

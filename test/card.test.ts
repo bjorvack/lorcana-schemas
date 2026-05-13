@@ -43,8 +43,6 @@ describe("Card", () => {
   });
 
   it("rejects an invalid ink value", () => {
-    expect(() =>
-      Card.parse({ ...valid, inks: ["Rainbow"] as unknown as CardT["inks"] }),
-    ).toThrow();
+    expect(() => Card.parse({ ...valid, inks: ["Rainbow"] as unknown as CardT["inks"] })).toThrow();
   });
 });

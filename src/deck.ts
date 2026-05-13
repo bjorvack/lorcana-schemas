@@ -22,10 +22,9 @@ export const Deck = z
           .strict(),
       )
       .min(1)
-      .refine(
-        (cards) => new Set(cards.map((c) => c.cardId)).size === cards.length,
-        { message: "Each cardId must appear at most once in cards[]" },
-      ),
+      .refine((cards) => new Set(cards.map((c) => c.cardId)).size === cards.length, {
+        message: "Each cardId must appear at most once in cards[]",
+      }),
     name: z.string().nullable(),
     source: z.string().nullable(),
   })
