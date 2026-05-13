@@ -6,6 +6,13 @@ the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ## [Unreleased]
 
+## [0.4.0]
+
+- `LorcastApiCard.image_uris.digital.{small,normal,large}` no longer require
+  `.url()`. Lorcast emits `""` for missing variants on some Challenge Promo
+  cards. `mapLorcastToCard` now picks the first non-empty URL across
+  large → normal → small; the output `Card` schema still enforces a real URL.
+
 ## [0.3.0]
 
 - `LorcastApiCard.classifications` and `.keywords` now accept `null` (Lorcast

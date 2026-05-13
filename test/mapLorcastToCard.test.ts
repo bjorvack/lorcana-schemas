@@ -50,4 +50,26 @@ describe("mapLorcastToCard", () => {
     expect(card.classifications).toEqual([]);
     expect(card.keywords).toEqual([]);
   });
+
+  it("falls back through image variants when some are empty strings", () => {
+    const onlyLarge = {
+      ...fixture,
+      image_uris: {
+        digital: {
+          small: "",
+          normal: "",
+          large: "https://example.com/large.png",
+        },
+      },
+    };
+    expect(mapLorcastToCard(onlyLarge).imageUrl).toBe("https://example.com/large.png");
+  });
+
+  it("throws when every image variant is empty", () => {
+    const allEmpty = {
+      ...fixture,
+      image_uris: { digital: { small: "", normal: "", large: "" } },
+    };
+    expect(() => mapLorcastToCard(allEmpty)).toThrow(/missing an image URL/);
+  });
 });

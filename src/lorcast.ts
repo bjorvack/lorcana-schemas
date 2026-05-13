@@ -36,11 +36,15 @@ export const LorcastApiCard = z
     flavor_text: z.string().nullable().optional(),
     image_uris: z
       .object({
+        // URL fields are intentionally permissive: Lorcast emits empty strings
+        // for missing variants (e.g. cp/* Challenge Promo cards have empty
+        // small/normal but a valid large). `asImageUrl` picks the first
+        // non-empty URL and validates it via the output `Card` schema.
         digital: z
           .object({
-            normal: z.string().url().optional(),
-            large: z.string().url().optional(),
-            small: z.string().url().optional(),
+            normal: z.string().optional(),
+            large: z.string().optional(),
+            small: z.string().optional(),
           })
           .partial()
           .optional(),
@@ -86,7 +90,10 @@ function asLegality(api: LorcastApiCardT): LegalityT {
 
 function asImageUrl(api: LorcastApiCardT): string {
   const d = api.image_uris?.digital;
-  const url = d?.large ?? d?.normal ?? d?.small;
+  // Lorcast emits `""` for missing variants. Prefer `large`, then `normal`,
+  // then `small`, skipping empties. Any truthy value is then re-validated as
+  // a URL by `Card.parse`.
+  const url = [d?.large, d?.normal, d?.small].find((u) => typeof u === "string" && u.length > 0);
   if (!url) throw new Error(`Card ${api.id} is missing an image URL`);
   return url;
 }

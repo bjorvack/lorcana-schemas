@@ -3,4 +3,4 @@
  * workflow. Consumers compare the major to the one they were built
  * against; a mismatch is a hard fail at startup.
  */
-export const SCHEMA_VERSION = "0.3.0";
+export const SCHEMA_VERSION = "0.4.0";
