@@ -1,0 +1,68 @@
+{
+  "$ref": "#/definitions/deck",
+  "definitions": {
+    "deck": {
+      "type": "object",
+      "properties": {
+        "inks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Amber",
+              "Amethyst",
+              "Emerald",
+              "Ruby",
+              "Sapphire",
+              "Steel"
+            ]
+          },
+          "minItems": 1,
+          "maxItems": 2
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "cardId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "count": {
+                "type": "integer",
+                "minimum": 1
+              }
+            },
+            "required": [
+              "cardId",
+              "count"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "inks",
+        "cards",
+        "name",
+        "source"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

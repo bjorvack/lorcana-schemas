@@ -1,0 +1,193 @@
+{
+  "$ref": "#/definitions/manifest",
+  "definitions": {
+    "manifest": {
+      "type": "object",
+      "properties": {
+        "modelVersion": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "schemaVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "vocabHash": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "cardSetVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cardsReleaseTag": {
+          "type": "string",
+          "minLength": 1
+        },
+        "datasetReleaseTag": {
+          "type": "string",
+          "minLength": 1
+        },
+        "encoderReleaseTag": {
+          "type": "string",
+          "minLength": 1
+        },
+        "trainedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "architecture": {
+          "type": "string",
+          "minLength": 1
+        },
+        "style_presets": {
+          "type": "object",
+          "properties": {
+            "safe": {
+              "type": "object",
+              "properties": {
+                "alpha": {
+                  "type": "number"
+                },
+                "gamma": {
+                  "type": "number"
+                },
+                "lambda": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "alpha",
+                "gamma",
+                "lambda"
+              ],
+              "additionalProperties": false
+            },
+            "balanced": {
+              "type": "object",
+              "properties": {
+                "alpha": {
+                  "type": "number"
+                },
+                "gamma": {
+                  "type": "number"
+                },
+                "lambda": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "alpha",
+                "gamma",
+                "lambda"
+              ],
+              "additionalProperties": false
+            },
+            "brew": {
+              "type": "object",
+              "properties": {
+                "alpha": {
+                  "type": "number"
+                },
+                "gamma": {
+                  "type": "number"
+                },
+                "lambda": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "alpha",
+                "gamma",
+                "lambda"
+              ],
+              "additionalProperties": false
+            },
+            "interpolatable": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "safe",
+            "balanced",
+            "brew",
+            "interpolatable"
+          ],
+          "additionalProperties": false
+        },
+        "metrics": {
+          "type": "object",
+          "properties": {
+            "legalityRate": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "evaluatorAuroc": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "evaluatorEce": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "per_style": {
+              "type": "object",
+              "properties": {
+                "safe": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "number"
+                  }
+                },
+                "balanced": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "number"
+                  }
+                },
+                "brew": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "number"
+                  }
+                }
+              },
+              "required": [
+                "safe",
+                "balanced",
+                "brew"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "legalityRate",
+            "evaluatorAuroc",
+            "evaluatorEce",
+            "per_style"
+          ],
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "modelVersion",
+        "schemaVersion",
+        "vocabHash",
+        "cardSetVersion",
+        "cardsReleaseTag",
+        "datasetReleaseTag",
+        "encoderReleaseTag",
+        "trainedAt",
+        "architecture",
+        "style_presets",
+        "metrics"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

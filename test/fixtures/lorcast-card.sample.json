@@ -1,0 +1,24 @@
+{
+  "id": "crd_abc123",
+  "name": "Mickey Mouse",
+  "version": "Brave Little Tailor",
+  "set": { "code": "TFC" },
+  "collector_number": 1,
+  "cost": 8,
+  "inkwell": false,
+  "inks": ["Amber"],
+  "type": ["Character"],
+  "classifications": ["Hero", "Storyborn"],
+  "keywords": ["Bodyguard"],
+  "text": "Bodyguard (This character may enter play exerted.)",
+  "flavor_text": "Tailor by trade, hero by chance.",
+  "image_uris": {
+    "digital": {
+      "normal": "https://images.lorcast.io/cards/normal/crd_abc123.png"
+    }
+  },
+  "legalities": { "core": "legal" },
+  "lore": 2,
+  "strength": 5,
+  "willpower": 5
+}

@@ -1,0 +1,9 @@
+{
+  "inks": ["Amber", "Steel"],
+  "cards": [
+    { "cardId": "crd_abc123", "count": 4 },
+    { "cardId": "crd_def456", "count": 3 }
+  ],
+  "name": "Sample deck",
+  "source": "fixtures"
+}

@@ -1,0 +1,197 @@
+{
+  "$ref": "#/definitions/card-set",
+  "definitions": {
+    "card-set": {
+      "type": "object",
+      "properties": {
+        "cardSetVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fetchedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "version": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "setCode": {
+                "type": "string",
+                "minLength": 1
+              },
+              "cardNumber": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "cost": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 20
+              },
+              "inkwell": {
+                "type": "boolean"
+              },
+              "inks": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "Amber",
+                    "Amethyst",
+                    "Emerald",
+                    "Ruby",
+                    "Sapphire",
+                    "Steel"
+                  ]
+                },
+                "minItems": 1,
+                "maxItems": 2
+              },
+              "types": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "Character",
+                    "Action",
+                    "Song",
+                    "Item",
+                    "Location"
+                  ]
+                },
+                "minItems": 1
+              },
+              "classifications": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "keywords": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "text": {
+                "type": "string"
+              },
+              "flavor": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "imageUrl": {
+                "type": "string",
+                "format": "uri"
+              },
+              "legality": {
+                "type": "string",
+                "enum": [
+                  "legal",
+                  "not_legal",
+                  "banned"
+                ]
+              },
+              "lore": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "strength": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "willpower": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "moveCost": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "version",
+              "setCode",
+              "cardNumber",
+              "cost",
+              "inkwell",
+              "inks",
+              "types",
+              "classifications",
+              "keywords",
+              "text",
+              "flavor",
+              "imageUrl",
+              "legality",
+              "lore",
+              "strength",
+              "willpower",
+              "moveCost"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "cardSetVersion",
+        "fetchedAt",
+        "cards"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}
