@@ -6,6 +6,13 @@ the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ## [Unreleased]
 
+## [0.3.0]
+
+- `LorcastApiCard.classifications` and `.keywords` now accept `null` (Lorcast
+  emits `classifications: null` on cards without subtypes, e.g. most
+  Actions/Songs/Items). Verified against set 1 where 55 of 216 cards carry
+  `classifications: null`.
+
 ## [0.2.0]
 
 - `LorcastApiCard.inks` now accepts `null` (Lorcast emits `inks: null` on

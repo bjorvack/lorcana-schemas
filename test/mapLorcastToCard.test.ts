@@ -43,4 +43,11 @@ describe("mapLorcastToCard", () => {
     const card = mapLorcastToCard(dual);
     expect(card.inks).toEqual(["Amber", "Steel"]);
   });
+
+  it("normalises classifications: null / keywords: null to empty arrays", () => {
+    const empty = { ...fixture, classifications: null, keywords: null };
+    const card = mapLorcastToCard(empty);
+    expect(card.classifications).toEqual([]);
+    expect(card.keywords).toEqual([]);
+  });
 });

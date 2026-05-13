@@ -30,8 +30,8 @@ export const LorcastApiCard = z
     ink: z.string().nullable().optional(),
     inks: z.array(z.string()).nullable().optional(),
     type: z.union([z.string(), z.array(z.string())]),
-    classifications: z.array(z.string()).optional(),
-    keywords: z.array(z.string()).optional(),
+    classifications: z.array(z.string()).nullable().optional(),
+    keywords: z.array(z.string()).nullable().optional(),
     text: z.string().nullable().optional(),
     flavor_text: z.string().nullable().optional(),
     image_uris: z

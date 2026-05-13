@@ -1,6 +1,6 @@
 {
   "name": "@bjorvack/lorcana-schemas",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Shared zod schemas + JSON Schema for the Lorcana deckbuilder pipeline.",
   "license": "MIT",
   "author": "bjorvack",
