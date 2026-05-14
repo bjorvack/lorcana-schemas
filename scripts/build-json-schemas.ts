@@ -3,12 +3,14 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { zodToJsonSchema } from "zod-to-json-schema";
 
+import { Banlist } from "../src/banlist.js";
 import { Card } from "../src/card.js";
-import { Deck } from "../src/deck.js";
-import { Tournament } from "../src/tournament.js";
 import { CardSet } from "../src/card-set.js";
 import { Dataset } from "../src/dataset.js";
+import { Deck } from "../src/deck.js";
 import { ModelManifest } from "../src/manifest.js";
+import { Rotation } from "../src/rotation.js";
+import { Tournament } from "../src/tournament.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const outDir = resolve(__dirname, "..", "schemas");
@@ -21,6 +23,8 @@ const targets = [
   { name: "card-set", schema: CardSet },
   { name: "dataset", schema: Dataset },
   { name: "manifest", schema: ModelManifest },
+  { name: "banlist", schema: Banlist },
+  { name: "rotation", schema: Rotation },
 ];
 
 for (const { name, schema } of targets) {

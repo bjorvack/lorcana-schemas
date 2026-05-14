@@ -14,6 +14,26 @@ export { ModelManifest, type ModelManifestT } from "./manifest.js";
 // Upstream validation
 export { LorcastApiCard, type LorcastApiCardT, mapLorcastToCard } from "./lorcast.js";
 
+// Format / banlist / rotation
+export {
+  Banlist,
+  BanlistEntry,
+  FormatName,
+  FormatNameValues,
+  resolveBanlist,
+  type BanlistEntryT,
+  type BanlistT,
+  type FormatNameT,
+} from "./banlist.js";
+export {
+  Rotation,
+  RotationBlock,
+  coreLegalSetCodes,
+  type RotationBlockT,
+  type RotationT,
+} from "./rotation.js";
+export { computeLegality, computeLegalityFast, type LegalityStatus } from "./legality.js";
+
 // Helpers
 export { computeMaxCopies, isTournamentLegal } from "./max-copies.js";
 

@@ -6,6 +6,30 @@ the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ## [Unreleased]
 
+## [0.5.0]
+
+### Added
+
+- `Banlist` and `Rotation` schemas + JSON-Schema sidecars. Both are
+  shipped as separate JSON files in the `cards-vN` release rather than
+  baked into each `Card`, so a banlist refresh doesn't force a card
+  re-bake.
+- `FormatName` enum (`core_constructed | infinity_constructed`).
+- `resolveBanlist(banlist, cards, format)` and `coreLegalSetCodes(rotation, asOf)`
+  helpers.
+- `computeLegality(card, banlist, rotation, format, asOf)` /
+  `computeLegalityFast(card, bannedIds, ...)` — the format-aware
+  successor to the per-card `Card.legality` enum. Returns one of
+  `legal | banned | rotated_out | not_yet_released`.
+
+### Changed
+
+- `isTournamentLegal(deck, cards, opts?)` grows an optional `opts`
+  argument carrying `banlist`, `rotation`, `format`, and `asOf`. With
+  no opts the function behaves bit-for-bit like `v0.4` (treats only
+  upstream-flagged `banned` / `not_legal` cards as illegal), so
+  existing consumers don't break.
+
 ## [0.4.0]
 
 - `LorcastApiCard.image_uris.digital.{small,normal,large}` no longer require

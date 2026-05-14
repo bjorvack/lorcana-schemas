@@ -1,0 +1,101 @@
+{
+  "$ref": "#/definitions/banlist",
+  "definitions": {
+    "banlist": {
+      "type": "object",
+      "properties": {
+        "generatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "sourceUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "schemaVersion": {
+          "type": "string"
+        },
+        "formats": {
+          "type": "object",
+          "properties": {
+            "core_constructed": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "cardName": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "setCode": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "cardNumber": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "effectiveDate": {
+                    "type": "string",
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                  }
+                },
+                "required": [
+                  "cardName",
+                  "setCode",
+                  "cardNumber",
+                  "effectiveDate"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "infinity_constructed": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "cardName": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "setCode": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "cardNumber": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "effectiveDate": {
+                    "type": "string",
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                  }
+                },
+                "required": [
+                  "cardName",
+                  "setCode",
+                  "cardNumber",
+                  "effectiveDate"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "core_constructed",
+            "infinity_constructed"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "generatedAt",
+        "sourceUrl",
+        "schemaVersion",
+        "formats"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}
