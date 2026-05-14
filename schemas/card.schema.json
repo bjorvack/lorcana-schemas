@@ -27,9 +27,33 @@
           "type": "string",
           "minLength": 1
         },
+        "setName": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
         "cardNumber": {
           "type": "integer",
           "minimum": 0
+        },
+        "collectorNumber": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         },
         "cost": {
           "type": "integer",
@@ -93,6 +117,53 @@
         "imageUrl": {
           "type": "string",
           "format": "uri"
+        },
+        "rarity": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "Common",
+                "Uncommon",
+                "Rare",
+                "Super Rare",
+                "Legendary",
+                "Enchanted",
+                "Special",
+                "Promo"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "illustrators": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "releasedAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "default": null
+        },
+        "tcgplayerId": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "exclusiveMinimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         },
         "legality": {
           "type": "string",
