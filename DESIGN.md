@@ -109,6 +109,80 @@ consumers can iterate without re-declaring the values.
   "legal"`. This is the single place these rules are encoded; the web app
   and training pipeline both call it.
 
+- **`Banlist`** — Ravensburger's per-format banned-card list. Banlists
+  change a few times per year by announcement and apply equally to
+  every deck in that format. Modelled as **separate data**, not a
+  per-card flag, so the same `Card` can be looked up across formats
+  without re-baking `cards-vN`:
+  ```ts
+  {
+    generatedAt: string,            // ISO 8601 UTC timestamp
+    sourceUrl: string,              // "https://lorcana.gg/banned-card-list/"
+    schemaVersion: string,          // "1.0.0"
+    formats: {
+      core_constructed: BanlistEntry[],
+      infinity_constructed: BanlistEntry[],
+    },
+  }
+
+  // BanlistEntry
+  {
+    cardName: string,               // "Hiram Flaversham - Toymaker"
+    setCode: string,                // "2"
+    cardNumber: number,             // 149
+    effectiveDate: string,          // ISO 8601 date the ban took effect
+  }
+  ```
+  The schema validates the shape; matching banlist entries to actual
+  `Card`s is the helper `resolveBanlist(banlist, cards)`'s job and
+  returns the set of banned `Card.id`s. Helpers belong here because
+  every consumer (scraper validation, web UI, training-time
+  filter) needs the same join.
+
+- **`Rotation`** — the Core-Constructed rotation calendar. Disney
+  Lorcana started set rotation with Set 9 (September 2025): the most
+  recent two yearly blocks (8 sets) are Core-legal, older sets
+  rotate out into Infinity-Constructed only. The block structure is
+  deterministic from set release dates, but a few constants
+  (cutoff months, block boundaries) change rarely and benefit from
+  being a single declarative file rather than scattered constants:
+  ```ts
+  {
+    generatedAt: string,
+    sourceUrl: string,              // "https://lorcana.gg/rotation/"
+    schemaVersion: string,
+    blocks: {
+      name: string,                 // "Year 1"
+      setCodes: string[],           // ["1", "2", "3", "4"]
+      releaseDate: string,          // ISO 8601 date of the *first* set's release
+      rotationDate: string,         // ISO 8601 date the block rotates out
+    }[],
+    coreConstructedCutoffMonths: number, // 24 at time of writing
+  }
+  ```
+
+- **`computeLegality`** — the format-aware replacement for the per-card
+  `Card.legality` flag. The flag still exists on `Card` (some upstream
+  adapters use it to mark promo-only cards) but tournament legality is
+  now a function:
+  ```ts
+  type FormatName = "core_constructed" | "infinity_constructed";
+
+  export function computeLegality(
+    card: CardT,
+    banlist: BanlistT,
+    rotation: RotationT,
+    format: FormatName,
+    asOf?: Date,                    // defaults to `new Date()`
+  ): "legal" | "banned" | "rotated_out" | "not_yet_released"
+  ```
+  `isTournamentLegal` gains the same `(banlist, rotation, format,
+  asOf)` arguments. Existing callers that pass only `(deck, cards)`
+  keep working — the function defaults `format =
+  "infinity_constructed"` (no rotation filter) and treats banlist
+  as empty, which matches v1's "drop only truly banned cards"
+  behaviour bit-for-bit.
+
 - **`Tournament`** — a scraped tournament with its top decks.
   ```ts
   {
