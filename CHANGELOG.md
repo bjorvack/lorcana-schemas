@@ -6,6 +6,25 @@ the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ## [Unreleased]
 
+## [0.6.0]
+
+### Added
+
+- `Rarity` enum + `Card.rarity` (nullable for older promos with no
+  rarity in the upstream API).
+- `Card.setName` — human-readable set name alongside the existing
+  `setCode`, so the UI can label a row "Azurite Sea" instead of "6".
+- `Card.collectorNumber` — printed collector number as a string,
+  preserves the letter-suffixed promo numbers (`001a`) that the
+  integer `cardNumber` can't represent.
+- `Card.illustrators` — array of artist credits.
+- `Card.releasedAt` — ISO date string, present on most modern
+  printings.
+- `Card.tcgplayerId` — TCGPlayer product id for "buy" deep-links.
+
+These were all available on the Lorcast upstream and previously
+discarded by the scraper.
+
 ## [0.5.0]
 
 ### Added

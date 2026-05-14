@@ -21,6 +21,12 @@ const valid: CardT = {
   strength: 5,
   willpower: 5,
   moveCost: null,
+  setName: null,
+  collectorNumber: null,
+  rarity: null,
+  illustrators: [],
+  releasedAt: null,
+  tcgplayerId: null,
 };
 
 describe("Card", () => {

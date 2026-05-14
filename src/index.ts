@@ -2,6 +2,7 @@
 export { Ink, InkValues, type InkT } from "./primitives.js";
 export { CardType, CardTypeValues, type CardTypeT } from "./primitives.js";
 export { Legality, LegalityValues, type LegalityT } from "./primitives.js";
+export { Rarity, RarityValues, type RarityT } from "./primitives.js";
 
 // Domain schemas
 export { Card, type CardT } from "./card.js";

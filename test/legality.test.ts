@@ -37,6 +37,12 @@ function makeCard(overrides: Partial<CardT> & Pick<CardT, "id" | "setCode" | "ca
     strength: overrides.strength ?? 1,
     willpower: overrides.willpower ?? 1,
     moveCost: overrides.moveCost ?? null,
+    setName: overrides.setName ?? null,
+    collectorNumber: overrides.collectorNumber ?? null,
+    rarity: overrides.rarity ?? null,
+    illustrators: overrides.illustrators ?? [],
+    releasedAt: overrides.releasedAt ?? null,
+    tcgplayerId: overrides.tcgplayerId ?? null,
   };
 }
 

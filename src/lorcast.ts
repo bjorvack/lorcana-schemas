@@ -4,9 +4,11 @@ import {
   CardType,
   Ink,
   Legality,
+  Rarity,
   type CardTypeT,
   type InkT,
   type LegalityT,
+  type RarityT,
 } from "./primitives.js";
 
 /**
@@ -22,9 +24,14 @@ export const LorcastApiCard = z
     set: z
       .object({
         code: z.string(),
+        name: z.string().optional(),
       })
       .passthrough(),
     collector_number: z.union([z.string(), z.number()]),
+    rarity: z.string().nullable().optional(),
+    illustrators: z.array(z.string()).nullable().optional(),
+    released_at: z.string().nullable().optional(),
+    tcgplayer_id: z.number().int().nullable().optional(),
     cost: z.number().int().nonnegative(),
     inkwell: z.boolean(),
     ink: z.string().nullable().optional(),
@@ -113,12 +120,28 @@ export function mapLorcastToCard(api: LorcastApiCardT): CardT {
     throw new Error(`Card ${parsed.id} has non-numeric collector_number`);
   }
 
+  // Lorcast sometimes reports rarities outside our enum (e.g.
+  // ``"D23"`` for D23-exclusive promos). Map anything unknown to
+  // ``Promo`` so the strict ``Card`` schema doesn't reject the row;
+  // the resulting ``rarity`` is still informative.
+  const rawRarity = parsed.rarity ?? null;
+  let rarity: RarityT | null = null;
+  if (rawRarity !== null) {
+    const ok = Rarity.safeParse(rawRarity);
+    rarity = ok.success ? ok.data : "Promo";
+  }
+
   const card: CardT = {
     id: parsed.id,
     name: parsed.name,
     version: parsed.version ?? null,
     setCode: parsed.set.code,
+    setName: parsed.set.name ?? null,
     cardNumber,
+    collectorNumber:
+      typeof parsed.collector_number === "string"
+        ? parsed.collector_number
+        : String(parsed.collector_number),
     cost: parsed.cost,
     inkwell: parsed.inkwell,
     inks: asInks(parsed),
@@ -128,6 +151,10 @@ export function mapLorcastToCard(api: LorcastApiCardT): CardT {
     text: parsed.text ?? "",
     flavor: parsed.flavor_text ?? null,
     imageUrl: asImageUrl(parsed),
+    rarity,
+    illustrators: parsed.illustrators ?? [],
+    releasedAt: parsed.released_at ?? null,
+    tcgplayerId: parsed.tcgplayer_id ?? null,
     legality: asLegality(parsed),
     lore: parsed.lore ?? null,
     strength: parsed.strength ?? null,
