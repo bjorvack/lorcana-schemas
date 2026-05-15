@@ -6,6 +6,23 @@ the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ## [Unreleased]
 
+## [0.7.0]
+
+### Added
+
+- `Tournament.externalKey` (optional) — stable hash that identifies a
+  tournament within its source. Conventionally
+  `sha256(sourceName|sourceUrl)`. Lets downstream consumers (training,
+  web) skip already-processed tournaments without recomputing the key
+  themselves.
+- `Deck.externalKey` (optional) — same idea at the deck level.
+  Conventionally `sha256(sourceName|externalUrl ?? source-specific id)`.
+- `Deck.externalUrl` (optional) — direct URL to the deck on the source
+  site, mirroring `Tournament.sourceUrl`.
+
+All three fields are optional, so 0.6.x datasets still parse against
+the 0.7 schema unchanged.
+
 ## [0.6.0]
 
 ### Added

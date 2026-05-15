@@ -27,6 +27,19 @@ export const Deck = z
       }),
     name: z.string().nullable(),
     source: z.string().nullable(),
+    /**
+     * Stable hash identifying this deck within its source. Computed by
+     * the scraper as `sha256(sourceName|externalUrl ?? source-specific id)`.
+     * Lets downstream consumers (training, web) deduplicate without
+     * re-deriving keys. Optional for forward-compat with older 0.6.x
+     * datasets that didn't emit one.
+     */
+    externalKey: z.string().min(1).optional(),
+    /**
+     * Direct URL to the deck on the source site, if the adapter knows
+     * one. Mirrors `Tournament.sourceUrl` at the deck level.
+     */
+    externalUrl: z.string().url().optional(),
   })
   .strict();
 

@@ -7,6 +7,14 @@ export const Tournament = z
   .object({
     sourceUrl: z.string().url(),
     sourceName: z.string().min(1),
+    /**
+     * Stable hash identifying this tournament within its source.
+     * Conventionally `sha256(sourceName|sourceUrl)`. Optional for
+     * forward-compat with older 0.6.x datasets; the scraper started
+     * emitting it in 0.7.0 so downstream consumers can skip already-
+     * processed tournaments without recomputing the key themselves.
+     */
+    externalKey: z.string().min(1).optional(),
     name: z.string().min(1),
     date: IsoDate,
     decks: z
