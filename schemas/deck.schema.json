@@ -53,6 +53,14 @@
             "string",
             "null"
           ]
+        },
+        "externalKey": {
+          "type": "string",
+          "minLength": 1
+        },
+        "externalUrl": {
+          "type": "string",
+          "format": "uri"
         }
       },
       "required": [

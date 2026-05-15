@@ -12,6 +12,10 @@
           "type": "string",
           "minLength": 1
         },
+        "externalKey": {
+          "type": "string",
+          "minLength": 1
+        },
         "name": {
           "type": "string",
           "minLength": 1
@@ -94,6 +98,14 @@
                       "string",
                       "null"
                     ]
+                  },
+                  "externalKey": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "externalUrl": {
+                    "type": "string",
+                    "format": "uri"
                   }
                 },
                 "required": [
